@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var offset = CGSize(width: 0, height: 300)
+    @State private var lastPos = CGSize(width: 0, height: 300)
     var body: some View {
         ZStack{
             NetworkImage(urlStr: "https://loremflickr.com/240/480/cat")
@@ -15,7 +17,17 @@ struct ContentView: View {
             Image("cyberpunk")
                 .resizable()
                 .scaledToFit()
-                .offset(y: 300)
+                .offset(offset)
+                .gesture(DragGesture()
+                            .onChanged{
+                                (delta) in
+                                offset = CGSize(width: lastPos.width + delta.translation.width, height: lastPos.height + delta.translation.height)
+//                                offset = delta.translation
+                            }
+                            .onEnded{
+                                (delta) in
+                                lastPos = offset
+                            })
         }
     }
 }
