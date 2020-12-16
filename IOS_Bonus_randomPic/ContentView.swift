@@ -9,8 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ZStack{
+            NetworkImage(urlStr: "https://loremflickr.com/240/480/cat")
+                .scaledToFit()
+            Image("cyberpunk")
+                .resizable()
+                .scaledToFit()
+                .offset(y: 300)
+        }
     }
 }
 
